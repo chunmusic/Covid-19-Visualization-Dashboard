@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+</head>
+
+<style type="text/css">
+    .container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+    }
+</style>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- <form method="post" action="" name="auto">
+</form> -->
+
+
+<!-- <body style="background-color:#eceff1;font-family: 'Rubik', sans-serif" onload="document.auto.submit()"> -->
+
+<body style="background-color:#eceff1;font-family: 'Rubik', sans-serif">
+
+    <div class="d-flex justify-content-center align-items-center" style="border-radius:20px;background-color:#80cbc4;margin-right:400px;margin-left:400px;margin-top:50px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+        <h1 style="margin-top:30px;margin-bottom:30px;color:grey;text-align:center;font-size:84px">
+            <span style="color:red">COVID-19 </span>DASHBOARD</h1>
+    </div>
+
+    <div>
+        
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="container shadow p-3 mb-5 rounded-3"
+                style="margin-top:100px;margin-right:120px;margin-left:120px;background-color:#b2dfdb">
+                <h1 style="color:grey;text-align:center;margin-top:4px;margin-bottom:4px;font-size:60px">
+                    {{selectedcountry}}</h1>
+            </div>
+            <div class="container">
+
+                <form style="margin-top:100px" method="post" class="d-flex justify-content-center align-items-center"
+                    action="">
+                    {% csrf_token %}
+                    <select class="form-control" style="width:300px;height:50px" name="selectedcountry">
+                        {% for country in mylist %}
+                        <option>{{country}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class ="container">
+                        <input type="submit" class="btn btn-primary btn-lg" name="">
+
+                    </div>
+                </form>
+
+            </div>
+            <div class="container">
+            </div>
+        </div>
+
+
+        <div class="d-flex justify-content-center align-items-center" style="border-radius:20px;background-color:#e0f2f1;margin-right:120px;margin-left:120px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+
+            <div class="container" style="padding-top:20px">
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Total Cases</h2>
+                    <h2 style="text-align: center">{{total}}</h2>
+                </div>
+                <div style="padding-top:10px;padding-bottom:10px">
+                </div>
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Recovered Cases</h2>
+                    <h2 style="text-align: center">{{recovered}}</h2>
+                </div>
+            </div>
+            <div class="container" style="padding-top:20px">
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Active</h2>
+                    <h2 style="text-align: center">{{active}}</h2>
+                </div>
+                <div style="padding-top:10px;padding-bottom:10px">
+                </div>
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">New Cases</h2>
+                    <h2 style="text-align: center">{{new}}</h2>
+                </div>
+            </div>
+            <div class="container" style="padding-top:20px">
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Deaths Cases</h2>
+                    <h2 style="text-align: center">{{deaths}}</h2>
+                </div>
+                <div style="padding-top:10px;padding-bottom:10px">
+                </div>
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Critical Cases</h2>
+                    <h2 style="text-align: center">{{critical}}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="container shadow p-3 mb-5 rounded-3"
+                style="margin-top:100px;margin-right:120px;margin-left:120px;background-color:#b2dfdb">
+                <h1 style="color:grey;text-align:center;margin-top:4px;margin-bottom:4px;font-size:60px">Worldwide</h1>
+            </div>
+            <div class="container">
+            </div>
+            <div class="container">
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center" style="border-radius:20px;background-color:#e0f2f1;margin-right:120px;margin-left:120px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+            <div class="container" style="padding-top:20px">
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Total Cases</h2>
+                    <h2 style="text-align: center">{{total_world}}</h2>
+                </div>
+                <div style="padding-top:10px;padding-bottom:10px">
+                </div>
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Recovered Cases</h2>
+                    <h2 style="text-align: center">{{recovered_world}}</h2>
+                </div>
+            </div>
+
+            <div class="container" style="padding-top:20px">
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Active</h2>
+                    <h2 style="text-align: center">{{active_world}}</h2>
+                </div>
+                <div style="padding-top:10px;padding-bottom:10px">
+                </div>
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">New Cases</h2>
+                    <h2 style="text-align: center">{{new_world}}</h2>
+                </div>
+            </div>
+            <div class="container" style="padding-top:20px">
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Deaths Cases</h2>
+                    <h2 style="text-align: center">{{deaths_world}}</h2>
+                </div>
+                <div style="padding-top:10px;padding-bottom:10px">
+                </div>
+                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
+                    <h2 style="text-align: center; padding-top:20px">Critical Cases</h2>
+                    <h2 style="text-align: center">{{critical_world}}</h2>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <p style="margin-top:150px; color:grey; text-align: center">Developed by <span
+            style="color:grey">ChunzPS</span></p>
+
+
+</body>
+
+
+</html>
