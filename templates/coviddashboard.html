@@ -123,6 +123,7 @@
                     action="">
                     {% csrf_token %}
                     <select class="form-control" style="width:300px;height:50px" name="selectedcountry">
+                        <option>Please Select</option>
                         {% for country in mylist %}
                         <option>{{country}}</option>
                         {% endfor %}
@@ -268,11 +269,11 @@
 
 
     <p style="margin-top:150px; color:grey; text-align: center">Developed by <span style="color:grey">ChunzPS</span></p>
-    <p>Population_world: <span id="population_world_get">{{population_world_raw}}</span></p>
-    <p>Population: <span id="population_get">{{population_raw}}</span></p>
+    <p style="display: none">Population_world: <span id="population_world_get">{{population_world_raw}}</span></p>
+    <p style="display: none">Population: <span id="population_get">{{population_raw}}</span></p>
 
-    <p>Total_world: <span id="total_world_get">{{total_world_raw}}</span></p>
-    <p>Total: <span id="total_get">{{total_raw}}</span></p>
+    <p style="display: none">Total_world: <span id="total_world_get">{{total_world_raw}}</span></p>
+    <p style="display: none">Total: <span id="total_get">{{total_raw}}</span></p>
 
 
 </body>
