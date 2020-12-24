@@ -108,8 +108,10 @@ def dashboardview(request):
 
                 if response['response'][x]['cases']['total'] == None:
                     total = str(0)
+                    total_raw = 0 
                 else:
                     total = "{:,}".format(int(response['response'][x]['cases']['total']))
+                    total_raw = int(response['response'][x]['cases']['total'])
 
                 if response['response'][x]['cases']['active'] == None:
                     active = str(0)
@@ -124,11 +126,9 @@ def dashboardview(request):
                 if response['response'][x]['population'] == None:
                     population = str(0)
                 else:
-                    population_raw = response['response'][thai_index]['population']
+                    population_raw = int(response['response'][x]['population'])
                     population = "{:,}".format(int(response['response'][x]['population']))
 
-                total_raw = int(response['response'][x]['cases']['total'])
-                population_raw = int(response['response'][x]['population'])
                 infected_percent = round((total_raw/population_raw)*100,2)
 
 
