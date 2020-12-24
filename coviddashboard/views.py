@@ -21,6 +21,7 @@ response = requests.request("GET", url, headers=headers).json()
 def dashboardview(request):
 
     mylist = []
+    population_world = 0
     noofresult = int(response['results'])
 
     # new_world = response['response']['All']['cases']['new']
@@ -33,25 +34,50 @@ def dashboardview(request):
         elif response['response'][x]['country'] == "Thailand":
             thai_index = x
 
-    new_world = response['response'][world_index]['cases']['new']
-    active_world = response['response'][world_index]['cases']['active']
-    critical_world = response['response'][world_index]['cases']['critical']
-    recovered_world = response['response'][world_index]['cases']['recovered']
-    total_world = response['response'][world_index]['cases']['total']
-    deaths_world = response['response'][world_index]['deaths']['total']
+        if response['response'][x]['population'] == None:
+            population_world += 0
+        else:
+            population_world += response['response'][x]['population']
 
+
+    new_world = "{:,}".format(int(response['response'][world_index]['cases']['new']))
+    active_world = "{:,}".format(int(response['response'][world_index]['cases']['active']))
+    critical_world = "{:,}".format(int(response['response'][world_index]['cases']['critical']))
+    recovered_world = "{:,}".format(int(response['response'][world_index]['cases']['recovered']))
+
+    total_world_raw = int(response['response'][world_index]['cases']['total'])
+    total_world = "{:,}".format(total_world_raw)
+    
+    deaths_world = "{:,}".format(int(response['response'][world_index]['deaths']['total']))
+
+    population_world_raw = int(population_world)
+    population_world = "{:,}".format(population_world)
+
+    infected_world_percent = round((total_world_raw/population_world_raw)*100,2)
 
     selectedcountry = 'Thailand'
-    new = response['response'][thai_index]['cases']['new']
-    active = response['response'][thai_index]['cases']['active']
-    critical = response['response'][thai_index]['cases']['critical']
-    recovered = response['response'][thai_index]['cases']['recovered']
-    total = response['response'][thai_index]['cases']['total']
-    deaths = response['response'][thai_index]['deaths']['total']
+    new = "{:,}".format(int(response['response'][thai_index]['cases']['new']))
+    active = "{:,}".format(int(response['response'][thai_index]['cases']['active']))
+    critical = "{:,}".format(int(response['response'][thai_index]['cases']['critical']))
+    recovered = "{:,}".format(int(response['response'][thai_index]['cases']['recovered']))
+
+    total_raw = int(response['response'][thai_index]['cases']['total'])
+    total = "{:,}".format(total_raw)
+    
+    deaths = "{:,}".format(int(response['response'][thai_index]['deaths']['total']))
+
+    population_raw = int(response['response'][thai_index]['population'])
+    population = "{:,}".format(int(response['response'][thai_index]['population']))
+
+    infected_percent = round((total_raw/population_raw)*100,2)
+
+    date = response['response'][thai_index]['day']
 
 
     context = {'mylist': mylist, 'new_world': new_world, 'active_world': active_world, 'critical_world': critical_world, 'recovered_world': recovered_world, 'total_world': total_world, 'deaths_world': deaths_world,
-               'selectedcountry': selectedcountry, 'new': new, 'active': active, 'critical': critical, 'recovered': recovered, 'total': total, 'deaths': deaths}
+                'population_raw':population_raw, 'population_world_raw':population_world_raw,'population_world':population_world,'population':population,'total_world_raw':total_world_raw,'total_raw':total_raw,
+                'infected_world_percent':infected_world_percent,'infected_percent':infected_percent,
+                'date':date,'selectedcountry': selectedcountry, 'new': new, 'active': active, 'critical': critical, 'recovered': recovered, 'total': total, 'deaths': deaths}
 
     if request.method == 'POST':
         selectedcountry = request.POST['selectedcountry']
@@ -62,34 +88,54 @@ def dashboardview(request):
 
             if selectedcountry == response['response'][x]['country']:
 
-                new = response['response'][x]['cases']['new']
-                active = response['response'][x]['cases']['active']
-                critical = response['response'][x]['cases']['critical']
-                recovered = response['response'][x]['cases']['recovered']
-                total = response['response'][x]['cases']['total']
-                deaths = response['response'][x]['deaths']['total']
 
-                if deaths == None:
+                date = response['response'][x]['day']
+
+                if response['response'][x]['deaths']['total'] == None:
                     deaths = str(0)
+                else:
+                    deaths = "{:,}".format(int(response['response'][x]['deaths']['total']))
 
-                if critical == None:
+                if response['response'][x]['cases']['critical'] == None:
                     critical = str(0)
-                
-                if new == None:
+                else:
+                    critical = "{:,}".format(int(response['response'][x]['cases']['critical']))
+
+                if response['response'][x]['cases']['new'] == None:
                     new = str(0)
+                else:
+                    new = "{:,}".format(int(response['response'][x]['cases']['new']))
 
-                if total == None:
+                if response['response'][x]['cases']['total'] == None:
                     total = str(0)
+                else:
+                    total = "{:,}".format(int(response['response'][x]['cases']['total']))
 
-                if active == None:
+                if response['response'][x]['cases']['active'] == None:
                     active = str(0)
+                else:
+                    active = "{:,}".format(int(response['response'][x]['cases']['active']))
 
-                if recovered == None:
+                if response['response'][x]['cases']['recovered'] == None:
                     recovered = str(0)
+                else:
+                    recovered = "{:,}".format(int(response['response'][x]['cases']['recovered']))
+
+                if response['response'][x]['population'] == None:
+                    population = str(0)
+                else:
+                    population_raw = response['response'][thai_index]['population']
+                    population = "{:,}".format(int(response['response'][x]['population']))
+
+                total_raw = int(response['response'][x]['cases']['total'])
+                population_raw = int(response['response'][x]['population'])
+                infected_percent = round((total_raw/population_raw)*100,2)
 
 
         context = {'mylist': mylist, 'new_world': new_world, 'active_world': active_world, 'critical_world': critical_world, 'recovered_world': recovered_world, 'total_world': total_world, 'deaths_world': deaths_world,
-                   'selectedcountry': selectedcountry, 'new': new, 'active': active, 'critical': critical, 'recovered': recovered, 'total': total, 'deaths': deaths}
+                   'population_raw':population_raw, 'population_world_raw':population_world_raw,'population_world':population_world,'population':population,'total_world_raw':total_world_raw,'total_raw':total_raw,
+                   'infected_world_percent':infected_world_percent,'infected_percent':infected_percent,
+                   'date':date,'selectedcountry': selectedcountry, 'new': new, 'active': active, 'critical': critical, 'recovered': recovered, 'total': total, 'deaths': deaths}
 
         return render(request, 'coviddashboard.html', context)
 
