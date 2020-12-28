@@ -1,8 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid-19 Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/templatemo-style.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
@@ -23,7 +29,7 @@
             var deaths_receive = deaths_get.innerHTML;
             var critical_receive = critical_get.innerHTML;
             var population_receive = population_get.innerHTML;
-            
+
             var uninfected = population_receive - total_receive;
 
             var total_world_receive = total_world_get.innerHTML;
@@ -39,15 +45,15 @@
 
             var data_world = google.visualization.arrayToDataTable([
                 ['Effort', 'Amount given'],
-                ['Infected', total_world_receive/1000000],
-                ['Uninfected', uninfected_world/1000000],
+                ['Infected', total_world_receive / 1000000],
+                ['Uninfected', uninfected_world / 1000000],
 
             ]);
 
             var data = google.visualization.arrayToDataTable([
                 ['Effort', 'Amount given'],
-                ['Infected', total_receive/1000000],
-                ['Uninfected', uninfected/1000000],
+                ['Infected', total_receive / 1000000],
+                ['Uninfected', uninfected / 1000000],
 
             ]);
 
@@ -61,11 +67,16 @@
                 fontName: 'Rubik',
                 slices: {
                     0: { color: '#E74C3C' },
-                    1: { offset: 0.1,
-                         color: '#B2BABB' }
+                    1: {
+                        offset: 0.1,
+                        color: '#B2BABB'
+                    }
                 },
+                // backgroundColor: '#e0f2sf1',
                 backgroundColor: '#e0f2f1',
-                pieSliceBorderColor: '#e0f2f1'
+                pieSliceBorderColor: '#e0f2f1',
+                chartArea:{left:17,top:0,width:'85%',height:'85%'}
+            
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('donut_single_world'));
@@ -77,15 +88,13 @@
         }
     </script>
 
-
 </head>
-
 
 <style type="text/css">
     .container {
         margin-top: 10px;
         margin-bottom: 10px;
-
+        text-align: center;
     }
 
     .center {
@@ -99,174 +108,180 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
 
-
-
 <body style="background-color:#eceff1;font-family: 'Rubik', sans-serif">
 
-    <div class="d-flex justify-content-center align-items-center" style="border-radius:20px;background-color:#80cbc4;margin-right:400px;margin-left:400px;margin-top:50px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-        <h1 style="margin-top:30px;margin-bottom:30px;color:grey;text-align:center;font-size:84px">
+    <div class="container-fluid tm-container-content tm-mt-60" style="padding-right:50px;padding-left:50px;">
+        <div class="row mb-4 tm-text-primary justify-content-end align-items-center"">
+            <h2 style=" margin-top:50px;margin-bottom:30px;color:grey;text-align:center;font-size:72px">
             <span style="color:red">COVID-19 </span>DASHBOARD</h1>
-    </div>
-
-    <div>
-
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="container shadow p-3 mb-5 rounded-3"
-                style="margin-top:100px;margin-right:120px;margin-left:120px;background-color:#b2dfdb">
-                <h1 style="color:grey;text-align:center;margin-top:4px;margin-bottom:4px;font-size:60px">
-                    {{selectedcountry}}</h1>
-            </div>
-            <div class="container">
-
-                <form style="margin-top:60px" method="post" class="d-flex justify-content-center align-items-center"
-                    action="">
-                    {% csrf_token %}
-                    <select class="form-control" style="width:300px;height:50px" name="selectedcountry">
-                        <option>Please Select</option>
-                        {% for country in mylist %}
-                        <option>{{country}}</option>
-                        {% endfor %}
-                    </select>
-                    <div class="container">
-                        <input type="submit" class="btn btn-primary btn-lg" name="">
-
-                    </div>
-                </form>
-
-            </div>
-            <div class="container" style="padding-top:50px;text-align: center;">
-                <h4>Update: <span>{{date}}</span></h4>
-                <br>
-                <h4>Population: <span>{{population}}</span></h4>
-            </div>
+            </h2>
         </div>
 
-
-        <div class="d-flex justify-content-center align-items-center" style="border-radius:20px;background-color:#e0f2f1;margin-right:120px;margin-left:120px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-
-            <div class="container" style="padding-top:20px">
-                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Total Cases</h2>
-                    <h2 style="text-align: center">{{total}}</h2>
-                </div>
-                <div style="padding-top:10px;padding-bottom:10px">
-                </div>
-                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Recovered Cases</h2>
-                    <h2 style="text-align: center" id="recovered_get">{{recovered}}</h2>
+        <div class="row tm-mb-90 tm-gallery">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <div class="container shadow p-3 mb-5 rounded-3" style="margin-top:100px;background-color:#b2dfdb">
+                    <h1 style="color:grey;text-align:center;margin-top:4px;margin-bottom:4px;font-size:48px">
+                        {{selectedcountry}}</h1>
                 </div>
             </div>
-            <div class="container" style="padding-top:20px">
-                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Active</h2>
-                    <h2 style="text-align: center" id="active_get">{{active}}</h2>
-                </div>
-                <div style="padding-top:10px;padding-bottom:10px">
-                </div>
-                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">New Cases</h2>
-                    <h2 style="text-align: center" id="new_get">{{new}}</h2>
-                </div>
-            </div>
-            <div class="container" style="padding-top:20px">
-                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Deaths Cases</h2>
-                    <h2 style="text-align: center" id="deaths_get">{{deaths}}</h2>
-                </div>
-                <div style="padding-top:10px;padding-bottom:10px">
-                </div>
-                <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Critical Cases</h2>
-                    <h2 style="text-align: center" id="critical_get">{{critical}}</h2>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <div class="container">
+                    <form style="margin-top:110px; margin-left:80px" method="post"
+                        class="d-flex justify-content-center align-items-center" action="">
+                        {% csrf_token %}
+                        <select class="form-control" style="width:300px;height:50px" name="selectedcountry">
+                            <option>Please Select</option>
+                            {% for country in mylist %}
+                            <option>{{country}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="container">
+                            <input type="submit" class="btn btn-primary btn-lg" name="">
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="container" style="padding-top:20px">
-                <h3 style="text-align: center; padding-top:40px">Infection Percentage</h3>
-                <h4 style="text-align: center; padding-top:40px">{{infected_percent}} %</h4>
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <div id="donut_single" style="width: 400px; height: 400px;padding-left:10px"></div>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="container shadow p-3 mb-5 rounded-3"
-                style="margin-top:100px;margin-right:120px;margin-left:120px;background-color:#b2dfdb">
-                <h1 style="color:grey;text-align:center;margin-top:4px;margin-bottom:4px;font-size:60px">Worldwide</h1>
-            </div>
-            <div class="container">
-            </div>
-            <div class="container">
-                <div class="container" style="padding-top:50px;text-align: center;">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <div class="container" style="padding-top:100px;text-align: center;">
                     <h4>Update: <span>{{date}}</span></h4>
                     <br>
-                    <h4>Population: <span>{{population_world}}</span></h4>
+                    <h4>Population: <span>{{population}}</span></h4>
                 </div>
             </div>
         </div>
 
-        <div class="d-flex justify-content-center align-items-center" style="border-radius:20px;background-color:#e0f2f1;margin-right:120px;margin-left:120px;
+        <div class="row tm-mb-90 tm-gallery" style="border-radius:20px;background-color:#e0f2f1;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
 
-            <div class="container" style="padding-top:20px">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="padding-top:50px">
                 <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Total Cases</h2>
-                    <h2 style="text-align: center">{{total_world}}</h2>
+                    style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                    <h4 style="text-align: center; padding-top:10px">Total Cases</h4>
+                    <h4 style="text-align: center">{{total}}</h4>
                 </div>
                 <div style="padding-top:10px;padding-bottom:10px">
                 </div>
                 <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Recovered Cases</h2>
-                    <h2 style="text-align: center" id="recovered_world_get">{{recovered_world}}</h2>
+                    style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                    <h4 style="text-align: center; padding-top:10px">Recovered Cases</h4>
+                    <h4 style="text-align: center" id="recovered_get">{{recovered}}</h4>
                 </div>
             </div>
-
-            <div class="container" style="padding-top:20px">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="padding-top:50px">
                 <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Active</h2>
-                    <h2 style="text-align: center" id="active_world_get">{{active_world}}</h2>
+                    style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                    <h4 style="text-align: center; padding-top:10px">Active</h4>
+                    <h4 style="text-align: center" id="active_get">{{active}}</h4>
                 </div>
                 <div style="padding-top:10px;padding-bottom:10px">
                 </div>
                 <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">New Cases</h2>
-                    <h2 style="text-align: center" id="new_world_get">{{new_world}}</h2>
+                    style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                    <h4 style="text-align: center; padding-top:10px">New Cases</h4>
+                    <h4 style="text-align: center" id="new_get">{{new}}</h4>
                 </div>
             </div>
-            <div class="container" style="padding-top:20px">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="padding-top:50px">
                 <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Deaths Cases</h2>
-                    <h2 style="text-align: center" id="deaths_world_get">{{deaths_world}}</h2>
+                    style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                    <h4 style="text-align: center; padding-top:10px">Deaths Cases</h4>
+                    <h4 style="text-align: center" id="deaths_get">{{deaths}}</h4>
                 </div>
                 <div style="padding-top:10px;padding-bottom:10px">
                 </div>
                 <div class="container shadow p-3 mb-5 bg-white rounded-pill"
-                    style="border-radius:20px;background-color:#b2dfdb;height:150px; width:300px">
-                    <h2 style="text-align: center; padding-top:20px">Critical Cases</h2>
-                    <h2 style="text-align: center" id="critical_world_get">{{critical_world}}</h2>
+                    style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                    <h4 style="text-align: center; padding-top:10px">Critical Cases</h4>
+                    <h4 style="text-align: center" id="critical_get">{{critical}}</h4>
                 </div>
             </div>
-            <div class="container" style="padding-top:20px">
-                <h3 style="text-align: center; padding-top:40px">Infection Percentage</h3>
-                <h4 style="text-align: center; padding-top:40px">{{infected_world_percent}} %</h4>
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <div id="donut_single_world" style="width: 400px; height: 400px;padding-left:10px"></div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="padding-top:50px">
+                <div class="container">
+                    <h4 style="text-align: center; padding-top:20px">Infected: {{infected_percent}} %</h4>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                </div>
+                <div id="donut_single" class="container" style="width: 300px; height: 300px"></div>
             </div>
         </div>
-    </div>
 
+
+        <div class="row tm-mb-90 tm-gallery">
+
+            <div class="row tm-mb-90 tm-gallery">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                    <div class="container shadow p-3 mb-5 rounded-3" style="margin-top:100px;background-color:#b2dfdb">
+                        <h1 style="color:grey;text-align:center;margin-top:4px;margin-bottom:4px;font-size:48px">
+                            Worldwide
+                        </h1>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                    <div class="container" style="padding-top:100px;text-align: center;">
+                        <h4>Update: <span>{{date}}</span></h4>
+                        <br>
+                        <h4>Population: <span>{{population_world}}</span></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row tm-mb-90 tm-gallery">
+            <div class="row tm-mb-90 tm-gallery" style="border-radius:20px;background-color:#e0f2f1;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="padding-top:20px">
+                    <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                        style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                        <h4 style="text-align: center; padding-top:10px">Total Cases</h4>
+                        <h4 style="text-align: center">{{total_world}}</h4>
+                    </div>
+                    <div style="padding-top:10px;padding-bottom:10px">
+                    </div>
+                    <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                        style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                        <h4 style="text-align: center; padding-top:10px">Recovered Cases</h4>
+                        <h4 style="text-align: center" id="recovered_world_get">{{recovered_world}}</h4>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="padding-top:20px">
+                    <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                        style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                        <h4 style="text-align: center; padding-top:10px">Active</h4>
+                        <h4 style="text-align: center" id="active_world_get">{{active_world}}</h4>
+                    </div>
+                    <div style="padding-top:10px;padding-bottom:10px">
+                    </div>
+                    <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                        style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                        <h4 style="text-align: center; padding-top:10px">New Cases</h4>
+                        <h4 style="text-align: center" id="new_world_get">{{new_world}}</h4>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="padding-top:20px">
+                    <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                        style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                        <h4 style="text-align: center; padding-top:10px">Deaths Cases</h4>
+                        <h4 style="text-align: center" id="deaths_world_get">{{deaths_world}}</h4>
+                    </div>
+                    <div style="padding-top:10px;padding-bottom:10px">
+                    </div>
+                    <div class="container shadow p-3 mb-5 bg-white rounded-pill"
+                        style="border-radius:20px;background-color:#b2dfdb;height:120px; width:240px">
+                        <h4 style="text-align: center; padding-top:10px">Critical Cases</h4>
+                        <h4 style="text-align: center" id="critical_world_get">{{critical_world}}</h4>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                    <div class="container">
+                        <h4 style="text-align: center; padding-top:20px">Infected: {{infected_world_percent}} %</h4>
+                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                        <div id="donut_single_world" class="container" style="width: 300px; height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- row -->
+
+    </div> <!-- container-fluid, tm-container-content -->
 
     <p style="margin-top:150px; color:grey; text-align: center">Developed by <span style="color:grey">ChunzPS</span></p>
     <p style="display: none">Population_world: <span id="population_world_get">{{population_world_raw}}</span></p>
@@ -276,9 +291,12 @@
     <p style="display: none">Total: <span id="total_get">{{total_raw}}</span></p>
 
 
+    <script src="js/plugins.js"></script>
+    <script>
+        $(window).on("load", function () {
+            $('body').addClass('loaded');
+        });
+    </script>
 </body>
-
-
-
 
 </html>
