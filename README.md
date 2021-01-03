@@ -10,10 +10,10 @@
 
 - All api are provided from https://rapidapi.com/api-sports/api/covid-193
 
+- Please refer to the website https://chunzps-covid-dashboard.herokuapp.com/
+
 ### Preview
 
-![Image1]
-(https://github.com/chunmusic/Covid-19-Visualization-Dashboard/blob/main/image/Image1.png)
+![Image1](https://github.com/chunmusic/Covid-19-Visualization-Dashboard/blob/main/image/Image1.png?raw=true)
 
-![Image2]
-(https://github.com/chunmusic/Covid-19-Visualization-Dashboard/blob/main/image/Image1.png)
+![Image1](https://github.com/chunmusic/Covid-19-Visualization-Dashboard/blob/main/image/Image2.png?raw=true)
