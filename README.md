@@ -10,7 +10,7 @@
 
 - All api are provided from https://rapidapi.com/api-sports/api/covid-193
 
-- Please refer to the website https://chunzps-covid-dashboard.herokuapp.com/
+- Please refer to the website https://corona-visualization-dashboard.herokuapp.com/
 
 ### Preview
 
